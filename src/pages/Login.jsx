@@ -16,10 +16,13 @@ function Login() {
     setLoading(true);
 
     const data = {
-                 email,
-                 password
-             }
-             loginUser(data)
+      email,
+      password,
+    };
+    const login = await loginUser(data);
+    if (login.success == true) {
+      alert("Login successful");
+    }
   };
 
   return (
@@ -33,8 +36,6 @@ function Login() {
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
-
-          
           <div>
             <div className="flex items-center gap-2 text-gray-500 mb-1 text-sm">
               <MdOutlineEmail />
@@ -50,7 +51,6 @@ function Login() {
             />
           </div>
 
-          
           <div>
             <div className="flex items-center gap-2 text-gray-500 mb-1 text-sm">
               <MdLockOutline />
@@ -66,7 +66,6 @@ function Login() {
             />
           </div>
 
-          
           <div className="flex justify-end">
             <button
               type="button"
@@ -77,33 +76,30 @@ function Login() {
             </button>
           </div>
 
-          
           <button
             type="submit"
             disabled={loading}
             className={`w-full h-11 text-white rounded-lg transition ${
-              loading ? "bg-gray-400 cursor-not-allowed" : "bg-black hover:bg-gray-800"
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-black hover:bg-gray-800"
             }`}
           >
             {loading ? "Signing In..." : "Sign In"}
           </button>
-
         </form>
 
-        
         <div className="flex items-center my-4">
           <div className="flex-1 border-t border-gray-300"></div>
           <span className="px-3 text-gray-400 text-sm">or</span>
           <div className="flex-1 border-t border-gray-300"></div>
         </div>
 
-       
         <button className="w-full flex items-center justify-center gap-2 border border-gray-300 h-11 rounded-lg hover:bg-gray-50 transition text-sm">
           <FcGoogle />
           Continue with Google
         </button>
 
-        
         <div className="mt-6 text-center text-sm text-gray-500">
           Don’t have an account?{" "}
           <button
