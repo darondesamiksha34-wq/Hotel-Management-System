@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Signin from "./pages/signin";
+import Signin from "./pages/Signin";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Hotel from "./pages/Hotel";
@@ -19,8 +19,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/hotel" element={<Hotel />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/login" element={<Signin />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/experience" element={<Experience />} />

@@ -14,18 +14,44 @@ function Signin() {
 
   
   
-      const handleSubmit = (e) => {
-          e.preventDefault();
-          alert("Account Created Successfully!")
-          const data = {
-              name,
-              email,
-              password
-          }
-          registerUser(data)
+      // const handleSubmit = (e) => {
+      //     e.preventDefault();
+      //     alert("Account Created Successfully!")
+      //     const data = {
+      //         name,
+      //         email,
+      //         password
+      //     }
+      //     registerUser(data)
+
+      //   };
+
+      const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const data = {
+    name,
+    email,
+    password
+  };
+
+  try {
+    await registerUser(data);
+
+    alert("Account Created Successfully!");
+
+    
+    setName("");
+    setEmail("");
+    setPassword("");
   
-  
-      };
+
+  } catch (error) {
+    console.error(error);
+    alert("Registration failed!");
+  }
+};
+        
   
 
   return (
@@ -104,7 +130,7 @@ function Signin() {
           <span>Already have an account? </span>
           <button 
             type="button"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/signin")}
             className="text-blue-600 font-medium hover:underline"
           >
             Sign in
@@ -117,4 +143,3 @@ function Signin() {
 }
 
 export default Signin;
-
