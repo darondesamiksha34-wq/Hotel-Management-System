@@ -21,7 +21,7 @@ function ForgotPassword() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/auth/send-reset-otp","https://hotel-management-system-backend-production-0c8a.up.railway.app",
+        "https://hotel-management-system-backend-production-0c8a.up.railway.app",
         { email }
       );
 
