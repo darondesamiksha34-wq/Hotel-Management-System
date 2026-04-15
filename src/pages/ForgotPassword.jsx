@@ -93,7 +93,6 @@
 
 // export default ForgotPassword;
 
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LockB from "../assets/Lock.jpg";
@@ -125,9 +124,7 @@ function ForgotPassword() {
       }
 
     } catch (error) {
-      alert(
-        error?.response?.data?.message || "User not found ❌"
-      );
+      alert(error?.response?.data?.message || "User not found ❌");
     } finally {
       setLoading(false);
     }

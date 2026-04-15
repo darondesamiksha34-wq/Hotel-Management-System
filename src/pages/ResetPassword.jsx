@@ -136,11 +136,10 @@
 
 // export default ResetPassword;
 
-
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import LockB from "../assets/Lock.jpg";
-import { resetPassword } from "../services/auth.service"; // ✅ import service
+import { resetPassword } from "../services/user.service"; // 
 
 function ResetPassword() {
   const location = useLocation();
