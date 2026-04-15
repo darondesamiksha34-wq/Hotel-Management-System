@@ -45,12 +45,26 @@ export const resetPassword = async () => {
 };
 
 //otp
-export const sendResetOtp = async () => {
+
+// export const sendResetOtp = async () => {
+//   try {
+//     const response = await instance.post("/api/auth/send-reset-otp");
+//     return response.data;
+//   } catch (error) {
+//     console.error("Logout Error:", error.response?.data || error.message);
+//     throw error;
+//   }
+// };
+
+export const sendResetOtp = async (email) => {
   try {
-    const response = await instance.post("/api/auth/send-reset-otp");
+    const response = await instance.post(
+      "/api/auth/send-reset-otp",
+      { email }
+    );
     return response.data;
   } catch (error) {
-    console.error("Logout Error:", error.response?.data || error.message);
+    console.error("OTP Error:", error.response?.data || error.message);
     throw error;
   }
 };
