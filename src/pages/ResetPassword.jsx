@@ -59,7 +59,7 @@ function ResetPassword() {
 
     } catch (error) {
       alert(
-        error?.response?.data?.message || "Invalid OTP"
+        error?.response?.data?.message || "Invalid OTP ❌"
       );
     } finally {
       setLoading(false);
@@ -108,7 +108,13 @@ function ResetPassword() {
           {loading ? "Resetting..." : "Reset Password"}
         </button>
 
-        
+        {/* <button
+          type="button"
+          onClick={() => navigate("/forgotpassword")}
+          className="w-full text-sm text-gray-700 mt-4 hover:underline"
+        >
+           Change email
+        </button> */}
       </form>
     </div>
   );
