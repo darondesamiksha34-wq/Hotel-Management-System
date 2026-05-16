@@ -4,13 +4,15 @@ import { FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";  
-import { registerUser } from "../services/user.service";
+import { deleteAccount, registerUser } from "../services/user.service";
 
 function Signin() {
   const navigate = useNavigate();  
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [accountCreated, setAccountCreated] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   
   
@@ -36,14 +38,23 @@ function Signin() {
   };
 
   try {
-    await registerUser(data);
+    const response = await registerUser(data);
+
+    if (response.success !== true) {
+      alert(response.message || "Registration failed!");
+      return;
+    }
 
     alert("Account Created Successfully!");
 
-    
+    localStorage.setItem("userEmail", email);
+    window.dispatchEvent(new Event("authChange"));
+
     setName("");
     setEmail("");
     setPassword("");
+    setAccountCreated(true);
+    navigate("/");
   
 
   } catch (error) {
@@ -51,6 +62,32 @@ function Signin() {
     alert("Registration failed!");
   }
 };
+
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setIsDeleting(true);
+      const response = await deleteAccount();
+
+      if (response.success === true) {
+        alert("Account deleted successfully");
+        setAccountCreated(false);
+        navigate("/login");
+      } else {
+        alert(response.message || "Unable to delete account");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong while deleting your account");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
         
   
 
@@ -118,6 +155,17 @@ function Signin() {
             Create Account
           </button>
         </form>
+
+        {accountCreated && (
+          <button
+            type="button"
+            onClick={handleDeleteAccount}
+            disabled={isDeleting}
+            className="mt-3 w-full h-10 border border-red-500 text-red-600 rounded-xl hover:bg-red-50 transition text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {isDeleting ? "Deleting..." : "Delete Account"}
+          </button>
+        )}
 
         <div className="my-3 text-center text-gray-500 text-sm">or</div>
 

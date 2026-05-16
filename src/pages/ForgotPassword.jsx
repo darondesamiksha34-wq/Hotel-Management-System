@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import LockB from "../assets/Lock.jpg";
+import { sendResetOtp } from "../services/user.service";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ function ForgotPassword() {
 
     } catch (error) {
       alert(
-        error?.response?.data?.message || "User not found ❌"
+        error?.response?.data?.message || "User not found or something went wrong"
       );
     } finally {
       setLoading(false);

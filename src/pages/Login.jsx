@@ -18,9 +18,10 @@ function Login() {
       const login = await loginUser(data);
 
       if (login.success === true) {
+        localStorage.setItem("userEmail", email);
+        window.dispatchEvent(new Event("authChange"));
         alert("Login successful");
 
-        
         navigate("/");
       } else {
         alert(login.message || "Login failed");
@@ -116,4 +117,3 @@ function Login() {
 }
 
 export default Login;
-

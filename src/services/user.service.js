@@ -25,10 +25,21 @@ export const loginUser = async (data) => {
 // Logout user
 export const logoutUser = async () => {
   try {
-    const response = await instance.post("/logout");
+    const response = await instance.post("/api/auth/logout");
     return response.data;
   } catch (error) {
     console.error("Logout Error:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Delete user account
+export const deleteAccount = async () => {
+  try {
+    const response = await instance.delete("/api/auth/delete-account");
+    return response.data;
+  } catch (error) {
+    console.error("Delete Account Error:", error.response?.data || error.message);
     throw error;
   }
 };
@@ -44,17 +55,6 @@ export const resetPassword = async () => {
   }
 };
 
-//otp
-
-// export const sendResetOtp = async () => {
-//   try {
-//     const response = await instance.post("/api/auth/send-reset-otp");
-//     return response.data;
-//   } catch (error) {
-//     console.error("Logout Error:", error.response?.data || error.message);
-//     throw error;
-//   }
-// };
 
 export const sendResetOtp = async (email) => {
   try {
@@ -68,6 +68,5 @@ export const sendResetOtp = async (email) => {
     throw error;
   }
 };
-
 
 

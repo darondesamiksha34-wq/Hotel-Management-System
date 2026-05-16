@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Signin from "./pages/signin";
+import Signin from "./pages/Signin";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Hotel from "./pages/Hotel";
@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Experience from "./pages/Experience";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+
 
 
 function App() {
