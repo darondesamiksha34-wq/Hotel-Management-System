@@ -55,7 +55,6 @@ export const resetPassword = async () => {
   }
 };
 
-
 export const sendResetOtp = async (email) => {
   try {
     const response = await instance.post(

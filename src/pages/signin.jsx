@@ -15,19 +15,6 @@ function Signin() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   
-  
-      // const handleSubmit = (e) => {
-      //     e.preventDefault();
-      //     alert("Account Created Successfully!")
-      //     const data = {
-      //         name,
-      //         email,
-      //         password
-      //     }
-      //     registerUser(data)
-
-      //   };
-
       const handleSubmit = async (e) => {
   e.preventDefault();
 
