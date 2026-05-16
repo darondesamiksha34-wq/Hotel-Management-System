@@ -4,9 +4,11 @@ import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/user.service";
+import { useToast } from "../components/ToastProvider";
 
 function Login() {
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,15 +22,15 @@ function Login() {
       if (login.success === true) {
         localStorage.setItem("userEmail", email);
         window.dispatchEvent(new Event("authChange"));
-        alert("Login successful");
+        showSuccess("Login successful");
 
         navigate("/");
       } else {
-        alert(login.message || "Login failed");
+        showError(login.message || "Login failed");
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong");
+      showError("Something went wrong");
     }
   };
 

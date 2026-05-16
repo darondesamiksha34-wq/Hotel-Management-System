@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { RiHomeSmile2Fill } from "react-icons/ri";
 import { deleteAccount, logoutUser } from "../services/user.service";
+import { useToast } from "./ToastProvider";
 
 function Navbar() {
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [userEmail, setUserEmail] = useState(() => localStorage.getItem("userEmail") || "");
@@ -38,18 +40,19 @@ function Navbar() {
       const response = await logoutUser();
 
       if (response.success !== true) {
-        alert(response.message || "Logout failed");
+        showError(response.message || "Logout failed");
         return;
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong while logging out");
+      showError("Something went wrong while logging out");
       return;
     }
 
     localStorage.removeItem("userEmail");
     setUserEmail("");
     setMenuOpen(false);
+    showSuccess("Logged out successfully");
     navigate("/signin");
   };
 
@@ -64,19 +67,19 @@ function Navbar() {
       const response = await deleteAccount();
 
       if (response.success !== true) {
-        alert(response.message || "Unable to delete account");
+        showError(response.message || "Unable to delete account");
         return;
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong while deleting your account");
+      showError("Something went wrong while deleting your account");
       return;
     }
 
     localStorage.removeItem("userEmail");
     setUserEmail("");
     setMenuOpen(false);
-    alert("Account deleted successfully");
+    showSuccess("Account deleted successfully");
     navigate("/signin");
   };
 
@@ -207,4 +210,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

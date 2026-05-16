@@ -9,31 +9,33 @@ import About from "./pages/About";
 import Experience from "./pages/Experience";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import { ToastProvider } from "./components/ToastProvider";
 
 
 
 function App() {
   return (
-    <div>
-      <Navbar />
+    <ToastProvider>
+      <div>
+        <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/hotel" element={<Hotel />} />
-        <Route path="/signin" element={<Login />} />
-        <Route path="/login" element={<Signin />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/experience" element={<Experience />} />
-        <Route path="/about" element={<About />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/hotel" element={<Hotel />} />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/login" element={<Signin />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/about" element={<About />} />
 
-      </Routes>
+        </Routes>
 
-          <Footer />
+        <Footer />
       </div>
+    </ToastProvider>
   );
 }
 
 export default App;
-
 

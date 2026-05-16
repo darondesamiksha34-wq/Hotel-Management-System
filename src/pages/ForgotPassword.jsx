@@ -3,17 +3,19 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import LockB from "../assets/Lock.jpg";
 import { sendResetOtp } from "../services/user.service";
+import { useToast } from "../components/ToastProvider";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
 
     if (!email) {
-      alert("Please enter your email");
+      showError("Please enter your email");
       return;
     }
 
@@ -26,14 +28,14 @@ function ForgotPassword() {
       );
 
       if (res?.data?.success) {
-        alert("OTP sent to your email ");
+        showSuccess("OTP sent to your email");
         navigate("/resetpassword", { state: { email } });
       } else {
-        alert(res?.data?.message || "Failed to send OTP");
+        showError(res?.data?.message || "Failed to send OTP");
       }
 
     } catch (error) {
-      alert(
+      showError(
         error?.response?.data?.message || "User not found or something went wrong"
       );
     } finally {

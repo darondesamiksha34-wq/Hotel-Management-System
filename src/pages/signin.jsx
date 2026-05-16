@@ -5,9 +5,11 @@ import { MdOutlineEmail, MdLockOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";  
 import { deleteAccount, registerUser } from "../services/user.service";
+import { useToast } from "../components/ToastProvider";
 
 function Signin() {
   const navigate = useNavigate();  
+  const { showSuccess, showError } = useToast();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,11 +30,11 @@ function Signin() {
     const response = await registerUser(data);
 
     if (response.success !== true) {
-      alert(response.message || "Registration failed!");
+      showError(response.message || "Registration failed!");
       return;
     }
 
-    alert("Account Created Successfully!");
+    showSuccess("Account created successfully");
 
     localStorage.setItem("userEmail", email);
     window.dispatchEvent(new Event("authChange"));
@@ -46,7 +48,7 @@ function Signin() {
 
   } catch (error) {
     console.error(error);
-    alert("Registration failed!");
+    showError("Registration failed!");
   }
 };
 
@@ -62,15 +64,15 @@ function Signin() {
       const response = await deleteAccount();
 
       if (response.success === true) {
-        alert("Account deleted successfully");
+        showSuccess("Account deleted successfully");
         setAccountCreated(false);
         navigate("/login");
       } else {
-        alert(response.message || "Unable to delete account");
+        showError(response.message || "Unable to delete account");
       }
     } catch (error) {
       console.error(error);
-      alert("Something went wrong while deleting your account");
+      showError("Something went wrong while deleting your account");
     } finally {
       setIsDeleting(false);
     }

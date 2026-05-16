@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import LockB from "../assets/Lock.jpg";
+import { useToast } from "../components/ToastProvider";
 
 function ResetPassword() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { showSuccess, showError } = useToast();
   const email = location.state?.email;
 
   const [otp, setOtp] = useState("");
@@ -23,17 +25,17 @@ function ResetPassword() {
     e.preventDefault();
 
     if (!otp || !newPassword) {
-      alert("Please fill all fields");
+      showError("Please fill all fields");
       return;
     }
 
     if (otp.length !== 6) {
-      alert("OTP must be 6 digits");
+      showError("OTP must be 6 digits");
       return;
     }
 
     if (newPassword.length < 6) {
-      alert("Password must be at least 6 characters");
+      showError("Password must be at least 6 characters");
       return;
     }
 
@@ -51,15 +53,15 @@ function ResetPassword() {
 
       
       if (res?.data?.success) {
-        alert("Password reset successful...!");
+        showSuccess("Password reset successful");
         navigate("/login");
       } else {
-        alert(res?.data?.message || "Reset failed");
+        showError(res?.data?.message || "Reset failed");
       }
 
     } catch (error) {
-      alert(
-        error?.response?.data?.message || "Invalid OTP ❌"
+      showError(
+        error?.response?.data?.message || "Invalid OTP"
       );
     } finally {
       setLoading(false);
